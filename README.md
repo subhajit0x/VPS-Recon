@@ -42,7 +42,7 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
 
 #Install Subfinder
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-
+change ~/.config/provider-config.yaml
 echo hackerone.com | subfinder -silent | httpx -silent | hakrawler > subfind.txt
 
 #Install Assetfinder
@@ -60,3 +60,12 @@ go install github.com/hakluke/hakrawler@latest
 
 #Commix
 sudo apt install commix
+
+
+#rengine
+git clone https://github.com/yogeshojha/rengine && cd rengine
+Change .env file 
+
+
+
+
