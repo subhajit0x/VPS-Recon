@@ -1,2 +1,5 @@
 # VPS-Recon
-This will help you setting up your VPS for the first time
+## Changing source lists
+> Switch to root!
+```
+sudo su
