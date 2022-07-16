@@ -26,3 +26,35 @@ sudo apt install sublist3r
 #nmap
 sudo apt install nmap
 
+#reconFTW
+git clone https://github.com/six2dez/reconftw
+cd reconftw/
+./install.sh
+./reconftw.sh -d target.com -r
+
+# adding GO env
+whichis go
+sudo nano ~/.bashrc
+# Golang vars
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
+
+#Install Subfinder
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+
+echo hackerone.com | subfinder -silent | httpx -silent | hakrawler > subfind.txt
+
+#Install Assetfinder
+go get -u github.com/tomnomnom/assetfinder
+
+#gobuster
+sudo apt install gobuster
+
+#dirsearch
+sudo apt install dirsearch
+
+#hakrawler
+go install github.com/hakluke/hakrawler@latest
+
+
