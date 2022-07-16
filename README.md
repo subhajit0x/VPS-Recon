@@ -58,3 +58,5 @@ sudo apt install dirsearch
 go install github.com/hakluke/hakrawler@latest
 
 
+#Commix
+sudo apt install commix
