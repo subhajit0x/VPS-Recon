@@ -1,16 +1,14 @@
 # VPS-Recon
-## Changing source lists
-> Switch to root!
+> Changing source lists
 ```
-sudo su
+sudo nano /etc/sources.list
 
-
-/etc/sources.list
-
+> Adding Kali mirror
 deb http://kali.cs.nctu.edu.tw/kali kali-rolling main contrib non-free
 # For source package access, uncomment the following line
 # deb-src http://kali.cs.nctu.edu.tw/kali kali-rolling main contrib non-free
 
+> Adding in keyring
 # download
 wget http://http.kali.org/kali/pool/main/k/kali-archive-keyring/kali-archive-keyring_2022.1_all.deb
 # install
@@ -20,6 +18,7 @@ rm kali-archive-keyring_2022.1_all.deb
 # update
 sudo apt-get update
 
+> Adding tools
 #sublist3r
 sudo apt install sublist3r
 
@@ -32,6 +31,7 @@ cd reconftw/
 ./install.sh
 ./reconftw.sh -d target.com -r
 
+> Go env setup
 # adding GO env
 whichis go
 sudo nano ~/.bashrc
