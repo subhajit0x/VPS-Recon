@@ -16,21 +16,28 @@ jobs:
     - name: Pull Nuclei Docker image
       run: docker pull projectdiscovery/nuclei:latest
 
-    - name: Clone Nuclei Templates
-      run: git clone https://github.com/projectdiscovery/nuclei-templates
-
-    - name: Run Nuclei with templates against klar.mx
+    - name: Download Nuclei Templates
       run: |
-        docker run -v $(pwd)/nuclei-templates:/nuclei-templates projectdiscovery/nuclei:latest -t /nuclei-templates -u gauhati.ac.in -o results.txt
+        wget https://github.com/projectdiscovery/nuclei-templates/archive/refs/heads/master.zip
+        unzip master.zip
+        mv nuclei-templates-master nuclei-templates
 
-    - name: Read results
-      id: results
-      run: echo "::set-output name=content::$(cat results.txt)"
+    - name: Run Nuclei with templates against gauhati.ac.in
+      run: |
+        docker run -v $(pwd)/nuclei-templates:/nuclei-templates projectdiscovery/nuclei:latest -t /nuclei-templates -u subhajitsaha.com -o results.txt
+
+    - name: Encode results to Base64
+      id: encode_results
+      run: echo "::set-output name=base64_content::$(base64 -w 0 results.txt)"
+
+    - name: Decode and set as PR body
+      id: decode_results
+      run: echo "::set-output name=content::$(echo '${{ steps.encode_results.outputs.base64_content }}' | base64 --decode)"
 
     - name: Create Pull Request with Results
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: Add nuclei scan results
-        title: Nuclei Scan Results for klar.mx
-        body: ${{ steps.results.outputs.content }}
+        title: Nuclei Scan Results for gauhati.ac.in
+        body: ${{ steps.decode_results.outputs.content }}
         branch: nuclei-scan-results
