@@ -21,7 +21,7 @@ jobs:
 
     - name: Run Nuclei with templates against klar.mx
       run: |
-        docker run -v $(pwd)/nuclei-templates:/nuclei-templates projectdiscovery/nuclei:latest -t /nuclei-templates -u test.sh -o results.txt
+        docker run -v $(pwd)/nuclei-templates:/nuclei-templates projectdiscovery/nuclei:latest -t /nuclei-templates -u embryohotel.com -o results.txt
 
     - name: Read results
       id: results
