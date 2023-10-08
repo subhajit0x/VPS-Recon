@@ -1,0 +1,32 @@
+name: Nuclei Scan Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  nuclei-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Pull Nuclei Docker image
+      run: docker pull projectdiscovery/nuclei:latest
+
+    - name: Clone Nuclei Templates
+      run: git clone https://github.com/projectdiscovery/nuclei-templates
+
+    - name: Run Nuclei with templates against klar.mx
+      run: |
+        docker run -v $(pwd)/nuclei-templates:/nuclei-templates projectdiscovery/nuclei:latest -t /nuclei-templates -u klar.mx -o results.txt
+
+    - name: Create Pull Request with Results
+      uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: Add nuclei scan results
+        title: Nuclei Scan Results for klar.mx
+        body: This PR includes the latest nuclei scan results for klar.mx.
+        branch: nuclei-scan-results
