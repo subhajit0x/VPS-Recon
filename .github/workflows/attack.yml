@@ -21,12 +21,16 @@ jobs:
 
     - name: Run Nuclei with templates against klar.mx
       run: |
-        docker run -v $(pwd)/nuclei-templates:/nuclei-templates projectdiscovery/nuclei:latest -t /nuclei-templates -u klar.mx -o results.txt
+        docker run -v $(pwd)/nuclei-templates:/nuclei-templates projectdiscovery/nuclei:latest -t /nuclei-templates -u test.sh -o results.txt
+
+    - name: Read results
+      id: results
+      run: echo "::set-output name=content::$(cat results.txt)"
 
     - name: Create Pull Request with Results
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: Add nuclei scan results
-        title: Nuclei Scan Results for klar.mx
-        body: This PR includes the latest nuclei scan results for klar.mx.
+        title: Nuclei Scan Results
+        body: ${{ steps.results.outputs.content }}
         branch: nuclei-scan-results
