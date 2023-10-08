@@ -31,6 +31,6 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: Add nuclei scan results
-        title: Nuclei Scan Results
+        title: Nuclei Scan Results for klar.mx
         body: ${{ steps.results.outputs.content }}
         branch: nuclei-scan-results
