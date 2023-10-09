@@ -41,3 +41,4 @@ jobs:
         title: Nuclei Scan Results for gauhati.ac.in
         body: ${{ steps.decode_results.outputs.content }}
         branch: nuclei-scan-results
+        path: results.txt
